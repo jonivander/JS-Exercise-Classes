@@ -144,7 +144,7 @@ class Lambdasian {
 const studentOne = new Lambdasian ({
   name: 'Jonathan',
   age: '32',
-  location: 'Portland'
+  location: 'Portland',
 });
 
 console.log(studentOne.speak());
@@ -163,9 +163,31 @@ console.log(studentOne.speak());
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
 
+class Instructor extends Lambdasian{
+  constructor(argument){
+    super(argument);
+    this.specialty = argument.specialty;
+    this.favLanguage = argument.favLanguage;
+    this.catchPhrase = argument.catchPhrase; 
+  }
+  demo(subject){
+    return `Today we are learning ${subject}`
+  }
+  grade(studentOne, subject){
+    return `${studentOne.name} receives a perfect score on ${subject}`
+  }
 }
+
+const teacherOne = new Instructor({
+  specialty: 'Redux',
+  favLanguage: 'Pearl',
+  catchPhrase: 'Sooner begun, sooner done!',
+});
+
+console.log(teacherOne.demo(`Javascript`));
+console.log(teacherOne.grade(studentOne, 'Javascript'));
+
 
 /*
   TASK 5
