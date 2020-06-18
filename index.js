@@ -41,8 +41,33 @@ class Airplane {
 */
 
 class Person {
-
+constructor(name, age){
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+eat(edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  }
+}
+poop(){
+  this.stomach = [];
+  }
+toString(){
+  return `${this.name}, ${this.age}`;
+  }
+}
+
+const personOne = new Person('Jonathan', '32');
+
+personOne.eat('Salad Roll')
+personOne.eat('Peanut Sauce')
+
+console.log(personOne.toString());
+console.log(personOne.stomach);
+personOne.poop();
+console.log(personOne.stomach);
 
 /*
   TASK 2
@@ -59,9 +84,40 @@ class Person {
 */
 
 class Car {
-
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  toString(){
+    return `${this.model}, ${this.milesPerGallon} MPH.`
+  }
+  fill(gallons){
+    this.tank += gallons;
+  }
+  drive(distance){
+    if(this.tank <= 0){
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }else if(this.tank > distance / this.milesPerGallon){
+      this.odometer += distance; 
+      this.tank -= distance / this.milesPerGallon;
+    }else if(this.tank > distance / this.milesPerGallon && this.tank > 0){
+      this.odometer += this.milesPerGallon * this.tank;
+      this.tank = 0; 
+      return `I ran out of fuel at ${this.odometer} miles!`; 
+    }
+  }
 }
 
+const carOne = new Car('Ford Ranger', '25')
+
+console.log(carOne.toString());
+carOne.fill(20);
+console.log(carOne.tank)
+carOne.drive(200);
+console.log(carOne.tank)
+console.log(carOne.odometer)
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -75,8 +131,23 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(argument){
+    this.name = argument.name; 
+    this.age = argument.age;
+    this.location = argument.location;
+  }
+  speak(){
+    return `Hello, my name is ${this.name}, I am from ${this.location}.`;
+  }
 }
+
+const lambdasianOne = new Lambdasian ({
+  name: 'Jonathan',
+  age: '32',
+  location: 'Portland',
+});
+
+console.log(lambdasianOne.speak());
 
 /*
   TASK 4
@@ -92,9 +163,31 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
 
+class Instructor extends Lambdasian{
+  constructor(argument){
+    super(argument);
+    this.specialty = argument.specialty;
+    this.favLanguage = argument.favLanguage;
+    this.catchPhrase = argument.catchPhrase; 
+  }
+  demo(subject){
+    return `Today we are learning ${subject}`
+  }
+  grade(lambdasianOne, subject){
+    return `${lambdasianOne.name} receives a perfect score on ${subject}`
+  }
 }
+
+const teacherOne = new Instructor({
+  specialty: 'Redux',
+  favLanguage: 'Pearl',
+  catchPhrase: 'Sooner begun, sooner done!',
+});
+
+console.log(teacherOne.demo(`Javascript`));
+console.log(teacherOne.grade(lambdasianOne, 'Javascript'));
+
 
 /*
   TASK 5
@@ -111,8 +204,22 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian{
+  constructor(attributes){
+    super(attributes);
+    this.previousBackground = attributes.previousBackground;
+    this.className = attributes.className;
+    this.favSubjects = attributes.favSubjects;
+  }  
+  listSubjects(){
+    return `Loving ${this.favSubjects}`
+  }
+  PRAssignment(subject){
+    return `${lambdasianOne.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject){
+    return `${lambdasianOne.name} has begun sprint challenge on ${subject}`
+  }
 }
 
 /*
