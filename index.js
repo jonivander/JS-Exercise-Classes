@@ -131,8 +131,23 @@ console.log(carOne.odometer)
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(argument){
+    this.name = argument.name; 
+    this.age = argument.age;
+    this.location = argument.location;
+  }
+  speak(){
+    return `Hello, my name is ${this.name}, I am from ${this.location}.`;
+  }
 }
+
+const studentOne = new Lambdasian ({
+  name: 'Jonathan',
+  age: '32',
+  location: 'Portland'
+});
+
+console.log(studentOne.speak());
 
 /*
   TASK 4
